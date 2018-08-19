@@ -12,32 +12,27 @@ class Map extends Component {
       {
         lat: 52.2299756,
         lng: 21.0025774,
-        text: "Złote Tarasy",
-        key: this.lat
+        text: "Złote Tarasy"
       },
       {
         lat: 52.2322737,
         lng: 21.0084045,
-        text: "Plac Defilad",
-        key: this.lat
+        text: "Plac Defilad"
       },
       {
         lat: 52.2360099,
         lng: 21.011496,
-        text: "Aioli",
-        key: this.lat
+        text: "Aioli"
       },
       {
         lat: 52.2316019,
         lng: 21.0125279,
-        text: "Kino Atlantyk",
-        key: this.lat
+        text: "Kino Atlantyk"
       },
       {
         lat: 52.2302091,
         lng: 21.0113922,
-        text: "Metro Centrum",
-        key: this.lat
+        text: "Metro Centrum"
       }
     ],
   }
@@ -67,6 +62,8 @@ renderMarkers(map, maps) {
   })
 ))
 }
+
+// A function to update
 
   render() {
     return (
