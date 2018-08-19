@@ -8,13 +8,14 @@ state ={
 }
 
 
-// A function to update the list and m
+// A function to update the input the query state with the input
 updateQuery=(query)=>{
   this.setState({query: query.trim()})
 }
 
 render(){
   const {myPlaces} = this.props
+  // A function to update the list dynamically
   let showingPlaces
   if(this.state.query){
     const match = new RegExp(escapeRegExp(this.state.query), 'i')
