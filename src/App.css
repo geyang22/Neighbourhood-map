@@ -26,3 +26,34 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+ .list{
+   left:0;
+   width:25%;
+   height:100%;
+   float: left;
+ }
+
+.search{
+  padding: 10px;
+  width: 100%;
+}
+
+input{
+width: 80%;
+height: 30px;
+margin: auto;
+}
+
+
+ .container, html, body {
+   width: 100%;
+ }
+
+ ul{
+   list-style: none;
+ }
+
+ li{
+   padding:10px;
+ }

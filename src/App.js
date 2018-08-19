@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import GoogleMapReact from 'google-map-react';
-// import Places from "./My places"
+import Places from "./My places"
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-// const Places = ({ marker }) => <div>{marker}</div>;
 
 class Map extends Component {
 //Store my favourite places
@@ -72,17 +70,23 @@ renderMarkers(map, maps) {
 
   render() {
     return (
-      <div style={{ height: '100vh', width: '100%' }}>
+      <div className="container" style={{width: '100%'}}>
+      <div style={{ height: '100vh', width: '75%', float:'right' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyDoVTAZeYX-uLrPxAiAJ_Uu5P07Hrl3CTM' }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
           onGoogleApiLoaded={({map, maps}) => this.renderMarkers(map, maps)}
         >
-          <AnyReactComponent
-          />
         </GoogleMapReact>
       </div>
+      <div className="list">
+      <div className='search'>
+        <input></input>
+      </div>
+      <Places myPlaces={this.state.myPlaces}></Places>
+      </div>
+    </div>
     );
   }
 }
