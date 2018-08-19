@@ -51,6 +51,7 @@ constructor(props) {
           this.myLatLng= '';
           this.marker='';
       }
+
 // A function to render markers
 renderMarkers(map, maps) {
   this.state.myPlaces.map((place)=>(
@@ -63,7 +64,6 @@ renderMarkers(map, maps) {
 ))
 }
 
-// A function to update
 
   render() {
     return (
@@ -77,10 +77,7 @@ renderMarkers(map, maps) {
         >
         </GoogleMapReact>
       </div>
-      <div className="list">
-      <div className='search'>
-        <input></input>
-      </div>
+      <div>
       <Places myPlaces={this.state.myPlaces}></Places>
       </div>
     </div>

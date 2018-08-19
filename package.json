@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "ajv": "^6.5.3",
+    "escape-string-regexp": "^1.0.5",
     "google-map-react": "^1.0.6",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
