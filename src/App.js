@@ -2,10 +2,48 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import GoogleMapReact from 'google-map-react';
+// import Places from "./My places"
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
+// const Places = ({ marker }) => <div>{marker}</div>;
 
 class Map extends Component {
+//Store my favourite places
+  state = {
+    myPlaces: [
+      {
+        lat: 52.2299756,
+        lng: 21.0025774,
+        text: "Złote Tarasy",
+        key: this.lat
+      },
+      {
+        lat: 52.2322737,
+        lng: 21.0084045,
+        text: "Plac Defilad",
+        key: this.lat
+      },
+      {
+        lat: 52.2360099,
+        lng: 21.011496,
+        text: "Aioli",
+        key: this.lat
+      },
+      {
+        lat: 52.2316019,
+        lng: 21.0125279,
+        text: "Kino Atlantyk",
+        key: this.lat
+      },
+      {
+        lat: 52.2302091,
+        lng: 21.0113922,
+        text: "Metro Centrum",
+        key: this.lat
+      }
+    ],
+  }
+//Definde the center of the map and zoom
   static defaultProps = {
     center: {
       lat: 52.231838,
@@ -14,6 +52,23 @@ class Map extends Component {
     zoom: 16
   };
 
+//Define variables needed
+constructor(props) {
+          super(props);
+          this.myLatLng= '';
+          this.marker='';
+      }
+// A function to render markers
+renderMarkers(map, maps) {
+  this.state.myPlaces.map((place)=>(
+  this.myLatLng = {lat: place.lat, lng: place.lng},
+  this.marker = new maps.Marker({
+    position: this.myLatLng,
+    map,
+    title: place.text
+  })
+))
+}
 
   render() {
     return (
@@ -22,11 +77,9 @@ class Map extends Component {
           bootstrapURLKeys={{ key: 'AIzaSyDoVTAZeYX-uLrPxAiAJ_Uu5P07Hrl3CTM' }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
+          onGoogleApiLoaded={({map, maps}) => this.renderMarkers(map, maps)}
         >
           <AnyReactComponent
-            lat={59.955413}
-            lng={30.337844}
-            text={'Kreyser Avrora'}
           />
         </GoogleMapReact>
       </div>
