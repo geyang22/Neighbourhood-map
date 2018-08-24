@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import GoogleMapReact from 'google-map-react';
 import Places from "./My places"
+import escapeRegExp from 'escape-string-regexp'
 
 
 class Map extends Component {
@@ -35,54 +35,76 @@ class Map extends Component {
         text: "Metro Centrum"
       }
     ],
+    query: '',
+    markers: []
   }
-//Definde the center of the map and zoom
-  static defaultProps = {
-    center: {
-      lat: 52.231838,
-      lng : 21.005995
-    },
-    zoom: 16
-  };
 
-//Define variables needed
-constructor(props) {
-          super(props);
-          this.myLatLng= '';
-          this.marker='';
-      }
 
-// A function to render markers
-renderMarkers(map, maps) {
-  this.state.myPlaces.map((place)=>(
-  this.myLatLng = {lat: place.lat, lng: place.lng},
-  this.marker = new maps.Marker({
-    position: this.myLatLng,
-    map,
-    title: place.text
-  })
-))
+
+componentDidMount() {
+    this.renderMap()
 }
+
+renderMap = () => {
+            loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDoVTAZeYX-uLrPxAiAJ_Uu5P07Hrl3CTM&callback=initMap")
+            window.initMap = this.initMap
+}
+
+initMap = () => {
+        //Initiate the map
+         const map = new window.google.maps.Map(document.getElementById('map'), {
+           center: {lat: 52.231838, lng: 21.005995},
+           zoom: 16
+         })
+       // Generate the markers
+         this.state.myPlaces.map(place => {
+    		const marker = new window.google.maps.Marker({
+      		position: {lat: place.lat , lng: place.lng},
+     		map: map,
+      		title: place.text,
+     })
+     //marker.addListener('click', this.toggleBounce);
+           this.setState({
+  markers: this.state.markers.concat(marker)
+})
+     })
+             console.log(this.state.markers)
+  }
+
+// A function to update the input the query state with the input
+updateQuery=(query)=>{
+  this.setState({query: query.trim()})
+}
+
+// toggleBounce=(marker)=>{
+//        if (marker.getAnimation() !== null) {
+//          marker.setAnimation(null);
+//        } else {
+//          marker.setAnimation(window.google.maps.Animation.BOUNCE);
+//        }
+//      }
 
 
   render() {
     return (
       <div className="container" style={{width: '100%'}}>
-      <div style={{ height: '100vh', width: '75%', float:'right' }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyDoVTAZeYX-uLrPxAiAJ_Uu5P07Hrl3CTM' }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-          onGoogleApiLoaded={({map, maps}) => this.renderMarkers(map, maps)}
-        >
-        </GoogleMapReact>
-      </div>
+      <div id='map'></div>
       <div>
-      <Places myPlaces={this.state.myPlaces}></Places>
+      <Places myPlaces={this.state.myPlaces} query={this.state.query} updateQuery={this.updateQuery}
+        markers={this.state.markers} ></Places>
       </div>
-    </div>
-    );
+      </div>
+    )
   }
+}
+
+function loadScript(url) {
+  var index  = window.document.getElementsByTagName("script")[0]
+  var script = window.document.createElement("script")
+  script.src = url
+  script.async = true
+  script.defer = true
+  index.parentNode.insertBefore(script, index)
 }
 
 export default Map;
