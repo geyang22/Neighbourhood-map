@@ -56,19 +56,32 @@ initMap = () => {
            center: {lat: 52.231838, lng: 21.005995},
            zoom: 16
          })
+
+         var infowindow = new window.google.maps.InfoWindow()
+
        // Generate the markers
          this.state.myPlaces.map(place => {
     		const marker = new window.google.maps.Marker({
       		position: {lat: place.lat , lng: place.lng},
      		map: map,
       		title: place.text,
+          animation: window.google.maps.Animation.DROP,
      })
-     //marker.addListener('click', this.toggleBounce);
+     marker.addListener('click', this.toggleBounce);
            this.setState({
   markers: this.state.markers.concat(marker)
 })
+marker.addListener('click', function() {
+
+// Change the content
+infowindow.setContent('hello')
+
+// Open An InfoWindow
+infowindow.open(map, marker)
+})
      })
              console.log(this.state.markers)
+
   }
 
 // A function to update the input the query state with the input
@@ -76,13 +89,16 @@ updateQuery=(query)=>{
   this.setState({query: query.trim()})
 }
 
-// toggleBounce=(marker)=>{
-//        if (marker.getAnimation() !== null) {
-//          marker.setAnimation(null);
-//        } else {
-//          marker.setAnimation(window.google.maps.Animation.BOUNCE);
-//        }
-//      }
+
+
+toggleBounce=(marker)=> {
+       if (marker.getAnimation() !== null) {
+         {marker.setAnimation(null)};
+       } else {
+         {marker.setAnimation(window.google.maps.Animation.BOUNCE)};
+       }
+     }
+
 
 
   render() {
